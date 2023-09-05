@@ -11,6 +11,9 @@ namespace Service.Utils
         {
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<SignupDto, User>();
+            CreateMap<LoginDto, User>();
+            CreateMap<UserUpdateDto, User>();
+            CreateMap<User, UserWithTokenDto>();
         }
     }
 }

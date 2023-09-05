@@ -8,9 +8,9 @@ namespace Database.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(u => u.GuId);
+            builder.HasKey(u => u.UserId);
 
-            builder.Property(u => u.GuId)
+            builder.Property(u => u.UserId)
                 .IsRequired()
                 .ValueGeneratedOnAdd()
                 .HasDefaultValueSql("NEWID()");

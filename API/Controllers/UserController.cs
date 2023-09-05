@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Dtos.User;
 using Service.Interfaces;
 
@@ -19,10 +20,34 @@ namespace API.Controllers
             return Ok(await _userService.GetUsersAsync());
         }
         [HttpGet("{GuId}")]
-        public async Task<IActionResult> GetUserByGuIdAsync(string GuId)
+        public async Task<IActionResult> GetUserByIdAsync(string GuId)
         {
-            var userDto = await _userService.GetUserByGuIdAsync(GuId);
+            var userDto = await _userService.GetUserByIdAsync(GuId);
+            if (userDto == null)
+            {
+                return BadRequest("User not found.");
+            }
             return Ok(userDto);
+        }
+        [HttpPut("{GuId}"), Authorize]
+        public async Task<IActionResult> UpdateUserByIdAsync(string GuId, [FromBody] UserUpdateDto userUpdateDto)
+        {
+            var userDto = await _userService.UpdateUserByIdAsync(GuId, userUpdateDto);
+            if (userDto == null)
+            {
+                return BadRequest("Can not update user.");
+            }
+            return Ok(userDto);
+        }
+        [HttpDelete("{GuId}"), Authorize]
+        public async Task<IActionResult> DeleteUserByIdAsync(string GuId)
+        {
+            var deleted = await _userService.DeleteUserByIdAsync(GuId);
+            if (!deleted)
+            {
+                return BadRequest("Can not delete user.");
+            }
+            return NoContent();
         }
     }
 }

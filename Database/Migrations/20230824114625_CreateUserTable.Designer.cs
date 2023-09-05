@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230822080832_CreateUserTable")]
+    [Migration("20230824114625_CreateUserTable")]
     partial class CreateUserTable
     {
         /// <inheritdoc />

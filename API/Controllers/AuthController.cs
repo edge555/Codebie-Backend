@@ -26,5 +26,16 @@ namespace API.Controllers
             }
             return Created(nameof(SignupAsync), userDto);
         }
+        [HttpPost]
+        [Route("Login")]
+        public async Task<ActionResult<UserWithTokenDto>> LoginAsync(LoginDto request)
+        {
+            var userWithToken = await _authService.LoginAsync(request);
+            if (userWithToken == null)
+            {
+                return BadRequest("Can not login.");
+            }
+            return Ok(userWithToken);
+        }
     }
 }
